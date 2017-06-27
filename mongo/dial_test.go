@@ -6,7 +6,7 @@ import (
 
 	"github.com/pkg/errors"
 	"github.com/stretchr/testify/assert"
-	"github.com/transcovo/beqos/util/helpermethods"
+	"github.com/transcovo/mgo-helper/utils"
 	"gopkg.in/mgo.v2"
 )
 
@@ -37,11 +37,11 @@ func TestPanicIfError_Panic(t *testing.T) {
 		}
 	}()
 
-	helpermethods.PanicIfError(errors.New("An error"))
+	utils.PanicIfError(errors.New("An error"))
 }
 
 func TestPanicIfError_NoPanic(t *testing.T) {
-	helpermethods.PanicIfError(nil)
+	utils.PanicIfError(nil)
 }
 
 func TestMakeMgoDialServer(t *testing.T) {

@@ -8,8 +8,8 @@ import (
 	"crypto/x509"
 	"net"
 
-	"github.com/transcovo/beqos/util/helpermethods"
 	"github.com/transcovo/go-chpr-logger"
+	"github.com/transcovo/mgo-helper/utils"
 	"gopkg.in/mgo.v2"
 )
 
@@ -42,13 +42,13 @@ func DialWithSSL(mongoURL string, ca []byte) *mgo.Session {
 	tlsConfig.RootCAs = roots
 
 	dialInfo, err := mgo.ParseURL(mongoURL)
-	helpermethods.PanicIfError(err)
+	utils.PanicIfError(err)
 
 	dialInfo.DialServer = makeMgoDialServer(tlsConfig)
 	//Here is the session you are looking for. Up to you from here ;)
 	logger.Info("[DialWithSSL] Calling DialWithInfo")
 	session, err := sslSessionFactory(dialInfo)
-	helpermethods.PanicIfError(err)
+	utils.PanicIfError(err)
 
 	return session
 }
@@ -60,7 +60,7 @@ It panics if anything goes wrong.
 */
 func DialWithoutSSL(mongoURL string) *mgo.Session {
 	session, err := mgo.Dial(mongoURL)
-	helpermethods.PanicIfError(err)
+	utils.PanicIfError(err)
 
 	return session
 }
