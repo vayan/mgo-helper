@@ -10,7 +10,7 @@ import (
 
 	"github.com/transcovo/go-chpr-logger"
 	"github.com/transcovo/mgo-helper/utils"
-	"gopkg.in/mgo.v2"
+	mgo "gopkg.in/mgo.v2"
 )
 
 var tlsDialer = tls.Dial

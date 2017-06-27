@@ -7,7 +7,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/stretchr/testify/assert"
 	"github.com/transcovo/mgo-helper/utils"
-	"gopkg.in/mgo.v2"
+	mgo "gopkg.in/mgo.v2"
 )
 
 func TestDial(t *testing.T) {

@@ -7,7 +7,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/transcovo/go-chpr-logger"
 	"github.com/transcovo/go-chpr-metrics"
-	"gopkg.in/mgo.v2"
+	mgo "gopkg.in/mgo.v2"
 )
 
 /*
