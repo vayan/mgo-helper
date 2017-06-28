@@ -1,17 +1,10 @@
 package models
 
 import (
-	"errors"
-
 	"github.com/sirupsen/logrus"
 	"github.com/transcovo/go-chpr-logger"
-	mgo "gopkg.in/mgo.v2"
+	"gopkg.in/mgo.v2"
 )
-
-/*
-ErrGenericDB is the error returned when an unknown mongo error happens.
-*/
-var ErrGenericDB = errors.New("DB Error")
 
 /*
 BaseModelInterface interface  defines the methods all models must implement.
@@ -68,9 +61,9 @@ func ensureIndexes(dbCollection indexInserter, indexes []*mgo.Index) {
 }
 
 /*
-SetupIndexes sets in mongo all the indexes for all the given models.
+EnsureIndexes sets in mongo all the indexes for all the given models.
 */
-func SetupIndexes(models []BaseModelInterface, background bool) {
+func EnsureIndexes(models []BaseModelInterface, background bool) {
 	for _, model := range models {
 		model.EnsureIndexes(background)
 	}
