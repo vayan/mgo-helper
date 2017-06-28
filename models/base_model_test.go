@@ -43,7 +43,7 @@ func TestBaseModel_EnsureIndexes(t *testing.T) {
 		},
 	}
 
-	EnsureIndexes([]BaseModelInterface{model}, false)
+	EnsureIndexes([]Model{model}, false)
 
 	indexes, err := db.C("some-collection").Indexes()
 	assert.Nil(t, err)
