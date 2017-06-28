@@ -7,9 +7,9 @@ import (
 )
 
 /*
-BaseModelInterface interface  defines the methods all models must implement.
+Model interface defines the methods all models must implement.
 */
-type BaseModelInterface interface {
+type Model interface {
 	EnsureIndexes(bool)
 	GetCollection() *mgo.Collection
 }
@@ -63,7 +63,7 @@ func ensureIndexes(dbCollection indexInserter, indexes []*mgo.Index) {
 /*
 EnsureIndexes sets in mongo all the indexes for all the given models.
 */
-func EnsureIndexes(models []BaseModelInterface, background bool) {
+func EnsureIndexes(models []Model, background bool) {
 	for _, model := range models {
 		model.EnsureIndexes(background)
 	}
