@@ -15,7 +15,7 @@ checkout:
 
 test:
   override:
-    - bash tools/test-with-coverage.sh
+    - bash tools/build.sh
 
   post:
     - bash <(curl -s https://codecov.io/bash)
