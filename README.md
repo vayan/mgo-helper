@@ -2,7 +2,7 @@
 
 This lib regroups all the golang mongo driver mgo utils that we developped to integrate into our projects. 
 
-[![CircleCI](https://circleci.com/gh/transcovo/mgo-helper.svg?style=svg&circle-token=3664fc4c8d1f7578b306d5aac5cc6bda59ac0eca)](https://circleci.com/gh/transcovo/mgo-helper)
+[![CircleCI](https://circleci.com/gh/transcovo/mgo-helper.svg?style=shield&circle-token=3664fc4c8d1f7578b306d5aac5cc6bda59ac0eca)](https://circleci.com/gh/transcovo/mgo-helper)
 [![codecov](https://codecov.io/gh/transcovo/mgo-helper/branch/master/graph/badge.svg)](https://codecov.io/gh/transcovo/mgo-helper)
 [![GoDoc](https://godoc.org/github.com/transcovo/mgo-helper?status.svg)](https://godoc.org/github.com/transcovo/mgo-helper)
 
