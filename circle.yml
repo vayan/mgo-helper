@@ -15,7 +15,20 @@ checkout:
 
 test:
   override:
-    - bash tools/build.sh
+    - bash tools/test-with-coverage.sh
 
   post:
     - bash <(curl -s https://codecov.io/bash)
+
+database:
+  cache_directories:
+    - mongodb-linux-x86_64-ubuntu1404-3.4.4
+  pre:
+    # Stop CircleCi's MongoDB
+    - sudo service mongod stop
+    # Download MongoDB 3.4.4
+    - if [[ ! -d mongodb-linux-x86_64-ubuntu1404-3.4.4 ]]; then curl -Ol https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1404-3.4.4.tgz && tar -zxvf mongodb-linux-x86_64-ubuntu1404-3.4.4.tgz; fi
+    # Create data directory
+    - mkdir -p ./data/db
+    # Start MongoDB
+    - ./mongodb-linux-x86_64-ubuntu1404-3.4.4/bin/mongod --fork --dbpath ./data/db --logpath ./mongod.log || (cat ./mongod.log && exit 1)
