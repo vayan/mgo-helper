@@ -15,6 +15,7 @@ Minimum Go version: 1.7
 - If you are using govendor
     ```shell
     govendor fetch github.com/transcovo/mgo-helper
+    govendor fetch github.com/transcovo/mgo-helper/mongo
     ```
 
 - standard way (not recommended)
@@ -22,19 +23,30 @@ Minimum Go version: 1.7
     got get -u github.com/transcovo/mgo-helper
     ```
 
+- You may want to use other modules (doc to come):
+    ```shell
+    govendor fetch github.com/transcovo/mgo-helper/models
+    govendor fetch github.com/transcovo/mgo-helper/utils
+    ```
+
+
 ## Usage
 
-The main function to be used to connect is `InitMongoFromConfig`
-by providing a mongo.Configuration object
+The main function to be used to connect is `mongo.InitMongoFromConfig`
+by providing a `mongo.Configuration` object
 
 ```go
-mongoConfig := Configuration{
+import (
+    "github.com/transcovo/mgo-helper/mongo"
+)
+
+mongoConfig := mongo.Configuration{
     PingFrequency: 100,
     SSLCert:       []byte{},
     UseSSL:        false,
     URL:           "mongodb://localhost:27017/some-test-db",
 }
-db, teardown := InitMongoFromConfig(mongoConfig)
+db, teardown := mongo.InitMongoFromConfig(mongoConfig)
 defer teardown()
 ```
 
