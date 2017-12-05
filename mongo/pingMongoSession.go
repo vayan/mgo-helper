@@ -1,7 +1,9 @@
 package mongo
 
 import (
+	"context"
 	"io"
+	"sync"
 	"time"
 
 	"github.com/sirupsen/logrus"
@@ -36,10 +38,12 @@ type sessionChecker struct {
 	session      pinger
 	trigger      <-chan time.Time
 	errorHandler errorHandler
+	waitGroup    sync.WaitGroup
 }
 
-func (checker *sessionChecker) Listen() {
+func (checker *sessionChecker) Listen(ctx context.Context) {
 	logger.Info("[mongo.PingMongoSession] Starting ping")
+	checker.waitGroup.Add(1)
 	go func() {
 		defer func() {
 			// This defer is only for testing
@@ -48,10 +52,22 @@ func (checker *sessionChecker) Listen() {
 				logger.WithField("err", r).Error("[mongo.PingMongoSession] Recovered from failing Ping gorountine")
 			}
 		}()
-		for range checker.trigger {
-			checker.checkConnection()
+		defer checker.waitGroup.Done()
+
+	loop:
+		for {
+			select {
+			case <-ctx.Done():
+				break loop
+			case <-checker.trigger:
+				checker.checkConnection()
+			}
 		}
 	}()
+}
+
+func (checker *sessionChecker) wait() {
+	checker.waitGroup.Wait()
 }
 
 func (checker *sessionChecker) checkConnection() {

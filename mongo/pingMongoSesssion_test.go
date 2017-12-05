@@ -1,6 +1,7 @@
 package mongo
 
 import (
+	"context"
 	"errors"
 	"io"
 	"testing"
@@ -32,6 +33,30 @@ func (mock *mockErrorHandler) onError(err error, msg string) {
 
 /*
 TestSessionChecker_Listen_Error tests that
+the goroutine created by the function exits when we close the
+input context
+*/
+func TestSessionChecker_Listen_ExitsOnCancel(t *testing.T) {
+	channel := make(chan time.Time, 1)
+	pinger := &mockPinger{err: io.EOF}
+	handler := &mockErrorHandler{done: make(chan bool, 1)}
+	checker := &sessionChecker{
+		session:      pinger,
+		trigger:      channel,
+		errorHandler: handler,
+	}
+	ctx, close := context.WithCancel(context.Background())
+	checker.Listen(ctx)
+	channel <- time.Unix(0, 0)
+	<-handler.done
+	close()
+
+	// this returns only if the goroutine exits
+	checker.wait()
+}
+
+/*
+TestSessionChecker_Listen_Error tests that
 the check is properly triggered by the channel and that
 the errorHandler is properly called when the ping returns an error
 */
@@ -44,9 +69,11 @@ func TestSessionChecker_Listen_Error(t *testing.T) {
 		trigger:      channel,
 		errorHandler: handler,
 	}
-	checker.Listen()
+	ctx, close := context.WithCancel(context.Background())
+	checker.Listen(ctx)
 	channel <- time.Unix(0, 0)
 	<-handler.done
+	close()
 
 	assert.Equal(t, "[mongo.PingMongoSession] EOF DB Error, crashing", handler.message)
 	assert.Equal(t, errors.New("EOF"), handler.err)
