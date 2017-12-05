@@ -10,14 +10,6 @@ import (
 	mgo "gopkg.in/mgo.v2"
 )
 
-/*
-Listener is the interface for the only exposed part of the sessionChecker that is public:
-its Listen function.
-*/
-type Listener interface {
-	Listen()
-}
-
 type pinger interface {
 	Ping() error
 }
@@ -82,11 +74,11 @@ func (checker *sessionChecker) crashOnError(err error) {
 }
 
 /*
-CreateMongoSessionPinger creates a Listener based on a mgo session that:
+createMongoSessionPinger creates a Listener based on a mgo session that:
 - regularly pings the DB session
 - in case of an EOF/Unknown error, it exits the process so the server can restart and recover properly
 */
-func CreateMongoSessionPinger(session *mgo.Session, pingInterval time.Duration) Listener {
+func createMongoSessionPinger(session *mgo.Session, pingInterval time.Duration) *sessionChecker {
 	ticker := time.NewTicker(pingInterval)
 	handler := &processQuitter{logger.GetLogger()}
 	checker := &sessionChecker{

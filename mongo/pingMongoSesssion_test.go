@@ -115,6 +115,6 @@ MongoSessionPinger using an actual mgo session.
 */
 func TestCreateMongoSessionPinger_Success(t *testing.T) {
 	session := &mgo.Session{}
-	pinger := CreateMongoSessionPinger(session, time.Second)
+	pinger := createMongoSessionPinger(session, time.Second)
 	assert.NotNil(t, pinger)
 }

@@ -29,11 +29,11 @@ func makeMgoDialServer(tlsConfig *tls.Config) func(addr *mgo.ServerAddr) (net.Co
 }
 
 /*
-DialWithSSL connects to a mongo database with SSL using the server public certificate passed with the ca argument.
+dialWithSSL connects to a mongo database with SSL using the server public certificate passed with the ca argument.
 
 It panics if anything goes wrong.
 */
-func DialWithSSL(mongoURL string, ca []byte) *mgo.Session {
+func dialWithSSL(mongoURL string, ca []byte) *mgo.Session {
 	roots := x509.NewCertPool()
 
 	roots.AppendCertsFromPEM(ca)
@@ -54,11 +54,11 @@ func DialWithSSL(mongoURL string, ca []byte) *mgo.Session {
 }
 
 /*
-DialWithoutSSL connects to a mongodb database without using SSL.
+dialWithoutSSL connects to a mongodb database without using SSL.
 
 It panics if anything goes wrong.
 */
-func DialWithoutSSL(mongoURL string) *mgo.Session {
+func dialWithoutSSL(mongoURL string) *mgo.Session {
 	session, err := mgo.Dial(mongoURL)
 	utils.PanicIfError(err)
 
@@ -66,15 +66,15 @@ func DialWithoutSSL(mongoURL string) *mgo.Session {
 }
 
 /*
-Dial connects to amongodb database with our without using SSL, depending on the value of the "useSSL" param.
+dial connects to amongodb database with our without using SSL, depending on the value of the "useSSL" param.
 
 It panics if anything goes wrong.
 */
-func Dial(useSSL bool, mongoURL string, ca []byte) *mgo.Session {
+func dial(useSSL bool, mongoURL string, ca []byte) *mgo.Session {
 	if useSSL {
 		logger.Info("[Dial] Connecting with SSL")
-		return DialWithSSL(mongoURL, ca)
+		return dialWithSSL(mongoURL, ca)
 	}
 	logger.Info("[Dial] Connecting without SSL")
-	return DialWithoutSSL(mongoURL)
+	return dialWithoutSSL(mongoURL)
 }

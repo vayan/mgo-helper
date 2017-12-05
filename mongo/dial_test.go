@@ -11,7 +11,7 @@ import (
 )
 
 func TestDial(t *testing.T) {
-	session := Dial(false, "mongodb://localhost:27017/test", []byte{})
+	session := dial(false, "mongodb://localhost:27017/test", []byte{})
 	session.Close()
 }
 
@@ -25,7 +25,7 @@ func TestDial_SSL(t *testing.T) {
 		return nil, nil
 	}
 
-	Dial(true, "mongodb://localhost:27017/test", []byte{})
+	dial(true, "mongodb://localhost:27017/test", []byte{})
 
 	assert.True(t, sslSessionFactoryCalled)
 }
