@@ -7,7 +7,8 @@ import (
 	"crypto/tls"
 	"crypto/x509"
 	"net"
-
+	
+	. "github.com/Shopify/sarama"
 	"github.com/transcovo/go-chpr-logger"
 	"github.com/transcovo/mgo-helper/utils"
 	mgo "gopkg.in/mgo.v2"
@@ -52,6 +53,8 @@ func DialWithSSL(mongoURL string, ca []byte) *mgo.Session {
 
 	return session
 }
+
+func 
 
 /*
 DialWithoutSSL connects to a mongodb database without using SSL.
