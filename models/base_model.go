@@ -1,9 +1,9 @@
 package models
 
 import (
+	"github.com/globalsign/mgo"
 	"github.com/sirupsen/logrus"
 	"github.com/transcovo/go-chpr-logger"
-	"gopkg.in/mgo.v2"
 )
 
 /*

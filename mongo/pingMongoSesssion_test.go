@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
+	mgo "github.com/globalsign/mgo"
 	"github.com/stretchr/testify/assert"
-	mgo "gopkg.in/mgo.v2"
 )
 
 type mockPinger struct {

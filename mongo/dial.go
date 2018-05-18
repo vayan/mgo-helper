@@ -8,9 +8,9 @@ import (
 	"crypto/x509"
 	"net"
 
+	mgo "github.com/globalsign/mgo"
 	"github.com/transcovo/go-chpr-logger"
 	"github.com/transcovo/mgo-helper/utils"
-	mgo "gopkg.in/mgo.v2"
 )
 
 var tlsDialer = tls.Dial

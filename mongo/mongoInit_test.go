@@ -3,8 +3,8 @@ package mongo
 import (
 	"testing"
 
+	mgo "github.com/globalsign/mgo"
 	"github.com/stretchr/testify/assert"
-	mgo "gopkg.in/mgo.v2"
 )
 
 /*

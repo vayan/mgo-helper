@@ -4,9 +4,9 @@ import (
 	"errors"
 	"testing"
 
+	mgo "github.com/globalsign/mgo"
 	"github.com/stretchr/testify/assert"
 	"github.com/transcovo/mgo-helper/mongo"
-	mgo "gopkg.in/mgo.v2"
 )
 
 type testDocument struct {

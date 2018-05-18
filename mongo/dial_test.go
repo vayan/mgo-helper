@@ -4,10 +4,10 @@ import (
 	"crypto/tls"
 	"testing"
 
+	mgo "github.com/globalsign/mgo"
 	"github.com/pkg/errors"
 	"github.com/stretchr/testify/assert"
 	"github.com/transcovo/mgo-helper/utils"
-	mgo "gopkg.in/mgo.v2"
 )
 
 func TestDial(t *testing.T) {

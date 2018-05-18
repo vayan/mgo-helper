@@ -3,7 +3,7 @@ package mongo
 import (
 	"time"
 
-	mgo "gopkg.in/mgo.v2"
+	mgo "github.com/globalsign/mgo"
 )
 
 /*

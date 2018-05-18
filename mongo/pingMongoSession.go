@@ -4,10 +4,10 @@ import (
 	"io"
 	"time"
 
+	mgo "github.com/globalsign/mgo"
 	"github.com/sirupsen/logrus"
 	"github.com/transcovo/go-chpr-logger"
 	"github.com/transcovo/go-chpr-metrics"
-	mgo "gopkg.in/mgo.v2"
 )
 
 /*
